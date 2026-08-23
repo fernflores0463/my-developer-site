@@ -19,3 +19,7 @@ p.subtitle {
 a {
 	color: #0066cc;
 }
+
+p.contact {
+	margin-top: 2rem;
+}

@@ -4,8 +4,9 @@
     {
       "name": "astro-dev",
       "runtimeExecutable": "/opt/homebrew/bin/node",
-      "runtimeArgs": ["./node_modules/astro/bin/astro.mjs", "dev", "--port", "4321"],
-      "port": 4321
+      "runtimeArgs": ["./node_modules/astro/bin/astro.mjs", "dev", "--port", "4323"],
+      "port": 4323,
+      "autoPort": false
     },
     {
       "name": "astro-preview",

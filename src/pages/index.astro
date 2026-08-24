@@ -1,16 +1,67 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import RowSection from '../components/RowSection.astro';
+
+const links = [
+	{ href: 'mailto:f1@fernflores.dev', label: 'f1@fernflores.dev' },
+	{ href: 'https://github.com/fernflores0463', label: 'GitHub' },
+	{ href: 'https://www.linkedin.com/in/fernandohernandez1/', label: 'LinkedIn' },
+];
+
+const education = [
+	{
+		years: '2014 – 2019',
+		title: 'B.S. Computer Science and Cybersecurity',
+		org: 'Rochester Institute of Technology',
+	},
+];
+
+const experience = [
+	{ years: '2024 – 2026', title: 'Software Engineer III', org: 'Compass' },
+	{ years: '2024', title: 'Software Engineer II', org: 'Mastercard' },
+	{ years: '2021 – 2023', title: 'Software Engineer II', org: 'JPMorgan Chase' },
+	{ years: '2019 – 2021', title: 'Junior Software Engineer', org: 'Leidos' },
+];
 ---
 
-<BaseLayout title="Fernando Flores Hernandez — Software Engineer">
-	<h1>Fernando Flores Hernandez</h1>
-	<p class="subtitle">Software Engineer · Seattle, WA</p>
-	<p>
-		Seattle-based software engineer with a background in financial services,
-		building backend systems, APIs, and cloud infrastructure.
-	</p>
-	<p>More coming soon.</p>
-	<p class="contact">
-		<a href="https://www.linkedin.com/in/fernandohernandez1/">LinkedIn</a> · <a href="mailto:f1@fernflores.dev">f1@fernflores.dev</a>
-	</p>
+<BaseLayout
+	title="Fernando Flores Hernandez — Software Engineer"
+	description="Fernando Flores Hernandez — software engineer in Seattle, WA. Backend systems for real estate, payments, and banking."
+>
+	<section class="hero">
+		<p class="role">Software Engineer&nbsp;&nbsp;/&nbsp;&nbsp;Seattle, WA</p>
+		<h1 class="bio">I build software people rely on without having to think about it.</h1>
+		<ul class="links">
+			{
+				links.map((link) => (
+					<li>
+						<a href={link.href}>{link.label}</a>
+					</li>
+				))
+			}
+		</ul>
+	</section>
+
+	<section class="prose-section prose-section--ruled">
+		<h2 class="section-label">About</h2>
+		<p class="prose">
+			Seven years as a software engineer across real estate, payments, and banking — most recently
+			at Compass, building Go services and React frontends for a platform serving thousands of real
+			estate agents. Before that, global file-transfer infrastructure at Mastercard and secured,
+			cloud-deployed services at JPMorgan Chase. I care about the unglamorous parts — reliability,
+			clear interfaces, and access control done right.
+		</p>
+	</section>
+
+	<RowSection label="Education" rows={education} />
+	<RowSection label="Experience" rows={experience} />
+
+	<section class="prose-section prose-section--closing">
+		<h2 class="section-label">Origin</h2>
+		<p class="prose">
+			I studied computer science and cybersecurity at RIT, and the overlap stuck: I’ve been drawn to
+			the systems nobody is supposed to notice — auth, transfers, notifications — ever since. The
+			best software I’ve shipped is the kind that kept working after I walked away.
+		</p>
+	</section>
 </BaseLayout>

@@ -1,0 +1,57 @@
+---
+// The brand is a button so the intro can be replayed by clicking it.
+// The animated spans are presentation only; the accessible name is the
+// aria-label. The span run must stay on one physical line and use &nbsp;
+// for the trailing spaces inside .rest — compressHTML would collapse a
+// plain space, and &nbsp; has the same advance width in a mono face.
+---
+
+<header class="site-header">
+	<button type="button" id="brand" class="brand" aria-label="Fernando Flores Hernandez">
+		<span aria-hidden="true"><span class="word w1"><span class="anchor"><span class="low">f</span><span class="cap">F</span></span><span class="rest">ernando&nbsp;</span></span><span class="word w2"><span class="anchor"><span class="low">2</span><span class="cap">F</span></span><span class="rest">lores&nbsp;</span></span><span class="word w3"><span class="anchor"><span class="low">h</span><span class="cap">H</span></span><span class="rest">ernandez</span></span><span class="digit1">1</span></span>
+	</button>
+</header>
+
+<!-- is:inline is load-bearing: a bundled module script would run after
+     paint and after user interaction becomes possible. -->
+<script is:inline>
+	(function () {
+		var brand = document.getElementById('brand');
+		if (!brand) return;
+		// Reduced motion: CSS already forces the final name; nothing to drive.
+		if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+		function play() {
+			// Transitions only fire on a style *change*: force a resting-state
+			// layout before adding .play, or a pre-paint start renders the name
+			// already expanded (the cold-load race — fonts.ready can resolve
+			// before first paint).
+			brand.classList.remove('play');
+			void brand.offsetWidth;
+			brand.classList.add('play');
+		}
+
+		var fontsReady = (document.fonts && document.fonts.ready) || Promise.resolve();
+		var cap = new Promise(function (resolve) {
+			setTimeout(resolve, 2000);
+		});
+		Promise.race([fontsReady, cap]).then(function () {
+			var started = false;
+			function start() {
+				if (started) return;
+				started = true;
+				setTimeout(play, 100);
+			}
+			// Double rAF guarantees a frame painted as f2h1 before the morph
+			// starts; the timeout fallback covers occluded/background windows
+			// where rAF never ticks (the reflow in play() still makes the
+			// transition valid without a paint in between).
+			requestAnimationFrame(function () {
+				requestAnimationFrame(start);
+			});
+			setTimeout(start, 300);
+		});
+
+		brand.addEventListener('click', play);
+	})();
+</script>

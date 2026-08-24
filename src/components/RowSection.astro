@@ -1,0 +1,29 @@
+---
+interface Row {
+	years: string;
+	title: string;
+	org: string;
+}
+
+interface Props {
+	label: string;
+	rows: Row[];
+}
+
+const { label, rows } = Astro.props;
+---
+
+<section class="rows-section">
+	<h2 class="section-label section-label--ruled">{label}</h2>
+	<ul>
+		{
+			rows.map((row) => (
+				<li class="row">
+					<span class="years">{row.years}</span>
+					<span class="title">{row.title}</span>
+					<span class="org">{row.org}</span>
+				</li>
+			))
+		}
+	</ul>
+</section>

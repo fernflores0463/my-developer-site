@@ -1,25 +1,424 @@
+/* ============================================================
+   fernflores.dev — colour tokens
+
+   Generated from design-canvas/palettes.json by gen-tokens.mjs.
+   Do not hand-edit this block: change palettes.json and re-run,
+   or the canvas and the site drift.
+
+   Committed:  Combination 286
+   Alternate:  Warm 286  (data-palette="warm-286")
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Combination 286 — light */
+:root {
+  --bg: #FCFCFB;
+  --surface: #F0F0EE;
+  --text: #191B24;
+  --text-muted: #6B6E7C;
+  --rule: rgba(25,27,36,.12);
+  --accent: #202D85;
+  --marker: #A93400;
+}
+
+/* Combination 286 — dark, following the system setting */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D0E14;
+    --surface: #171926;
+    --text: #ECEDF2;
+    --text-muted: #8F93A3;
+    --rule: rgba(236,237,242,.14);
+    --accent: #00CF91;
+    --marker: #FFAB00;
+  }
+}
+
+/* Combination 286 — dark, chosen explicitly */
+:root[data-theme="dark"] {
+  --bg: #0D0E14;
+  --surface: #171926;
+  --text: #ECEDF2;
+  --text-muted: #8F93A3;
+  --rule: rgba(236,237,242,.14);
+  --accent: #00CF91;
+  --marker: #FFAB00;
+}
+
+/* ------------------------------------------------------------
+   Alternate palette. Switch the whole site with:
+   <html data-palette="warm-286">
+   ------------------------------------------------------------ */
+
+/* Warm 286 — light */
+:root[data-palette="warm-286"] {
+  --bg: #FAF8F4;
+  --surface: #F1EDE5;
+  --text: #1F1C17;
+  --text-muted: #6E675C;
+  --rule: rgba(31,28,23,.12);
+  --accent: #202D85;
+  --marker: #A93400;
+}
+
+/* Warm 286 — dark, following the system setting */
+@media (prefers-color-scheme: dark) {
+  :root[data-palette="warm-286"]:not([data-theme="light"]) {
+    --bg: #171510;
+    --surface: #211E17;
+    --text: #EDE8DE;
+    --text-muted: #9A9184;
+    --rule: rgba(237,232,222,.14);
+    --accent: #FFAB00;
+    --marker: #00CF91;
+  }
+}
+
+/* Warm 286 — dark, chosen explicitly */
+:root[data-palette="warm-286"][data-theme="dark"] {
+  --bg: #171510;
+  --surface: #211E17;
+  --text: #EDE8DE;
+  --text-muted: #9A9184;
+  --rule: rgba(237,232,222,.14);
+  --accent: #FFAB00;
+  --marker: #00CF91;
+}
+
+/* ============================================================
+   Base
+   ============================================================ */
+
+:root {
+  --font-sans: 'Instrument Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-	max-width: 640px;
-	margin: 4rem auto;
-	padding: 0 1.5rem;
-	line-height: 1.6;
-	color: #222;
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
 }
 
-h1 {
-	margin-bottom: 0;
+h1,
+h2,
+p,
+ul {
+  margin: 0;
+  padding: 0;
 }
 
-p.subtitle {
-	color: #666;
-	margin-top: 0.25rem;
+ul {
+  list-style: none;
 }
 
 a {
-	color: #0066cc;
+  color: inherit;
+  text-decoration: none;
 }
 
-p.contact {
-	margin-top: 2rem;
+.frame {
+  max-width: 880px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 6vw, 80px);
+}
+
+/* ============================================================
+   Header + the f2h1 brand
+   ============================================================ */
+
+.site-header {
+  display: flex;
+  align-items: baseline;
+  padding: 26px 0 34px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.brand {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 15px;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  color: inherit;
+  text-align: left;
+}
+
+.brand:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Resting state: the mark reads f2h1 */
+.brand .word,
+.brand .anchor {
+  display: inline-block;
+  white-space: pre;
+}
+
+.brand .cap {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  vertical-align: bottom;
+}
+
+.brand .low {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 2ch;
+  opacity: 1;
+  vertical-align: bottom;
+}
+
+.brand .rest {
+  display: inline-block;
+  overflow: hidden;
+  white-space: pre;
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-3px);
+  vertical-align: bottom;
+}
+
+.brand .digit1 {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 1.2ch;
+  opacity: 1;
+  vertical-align: bottom;
+}
+
+/* Playing: one continuous morph — f2h1 expands directly into the full
+   name (case swaps and word unfolds run together; no intermediate FFH
+   read). Per-word stagger keeps it reading left to right. The one
+   sanctioned exception to the ≤200ms motion cap. */
+.brand.play .cap {
+  max-width: 2ch;
+  opacity: 1;
+  transition: max-width 300ms cubic-bezier(.22,1,.36,1), opacity 220ms ease;
+}
+
+.brand.play .low {
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 300ms cubic-bezier(.22,1,.36,1), opacity 220ms ease;
+}
+
+.brand.play .digit1 {
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 300ms cubic-bezier(.22,1,.36,1), opacity 220ms ease;
+}
+
+.brand.play .rest {
+  max-width: 10ch;
+  opacity: 1;
+  transform: translateX(0);
+  transition: max-width 640ms cubic-bezier(.22,1,.36,1), opacity 320ms ease, transform 640ms cubic-bezier(.22,1,.36,1);
+}
+
+.brand.play .w2 .rest { transition-delay: 90ms; }
+.brand.play .w3 .rest { transition-delay: 180ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .brand .cap,
+  .brand.play .cap {
+    max-width: 2ch;
+    opacity: 1;
+    transition: none;
+  }
+
+  .brand .low,
+  .brand.play .low {
+    max-width: 0;
+    opacity: 0;
+    transition: none;
+  }
+
+  .brand .digit1,
+  .brand.play .digit1 {
+    max-width: 0;
+    opacity: 0;
+    transition: none;
+  }
+
+  .brand .rest,
+  .brand.play .rest {
+    max-width: 10ch;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ============================================================
+   Hero
+   ============================================================ */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 64px 0 60px;
+}
+
+.role {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--marker);
+}
+
+.bio {
+  font-weight: 500;
+  font-size: clamp(28px, 3.5vw + 15px, 40px);
+  line-height: 1.16;
+  letter-spacing: -0.02em;
+  max-width: 21ch;
+  text-wrap: pretty;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 22px;
+  row-gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  padding-top: 6px;
+}
+
+.links a {
+  color: var(--accent);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+}
+
+.links a:hover {
+  border-bottom-color: var(--accent);
+}
+
+.links a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .links a {
+    transition: border-bottom-color 150ms ease;
+  }
+}
+
+/* ============================================================
+   Sections
+   ============================================================ */
+
+.section-label {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.section-label--ruled {
+  padding-bottom: 9px;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Prose blocks — About, Origin */
+.prose-section {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 46px 0 52px;
+}
+
+.prose-section--ruled {
+  border-top: 1px solid var(--rule);
+}
+
+.prose-section--closing {
+  padding: 0;
+}
+
+.prose {
+  font-size: 17px;
+  line-height: 1.66;
+  max-width: 60ch;
+  text-wrap: pretty;
+}
+
+/* List blocks — Education, Experience */
+.rows-section {
+  padding-bottom: 46px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) auto;
+  column-gap: 18px;
+  align-items: baseline;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.row .years {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.row .title {
+  font-size: 15px;
+}
+
+.row .org {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Footer
+   ============================================================ */
+
+.site-footer {
+  margin-top: 44px;
+  padding: 16px 0 56px;
+  border-top: 1px solid var(--rule);
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ============================================================
+   Phone widths
+   ============================================================ */
+
+@media (max-width: 560px) {
+  .row {
+    grid-template-columns: 92px minmax(0, 1fr);
+    row-gap: 2px;
+  }
+
+  .row .org {
+    grid-column: 2;
+  }
 }

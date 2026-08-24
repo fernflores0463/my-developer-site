@@ -22,3 +22,10 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# claude code local tooling
+.claude/
+CLAUDE.md
+
+# design canvas working files
+design-canvas/

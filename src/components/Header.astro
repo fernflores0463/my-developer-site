@@ -40,7 +40,9 @@
 			function start() {
 				if (started) return;
 				started = true;
-				setTimeout(play, 100);
+				// 500ms hold on f2h1 before the morph starts (client 2026-08-25);
+				// measured from a guaranteed-painted frame, so fully visible.
+				setTimeout(play, 500);
 			}
 			// Double rAF guarantees a frame painted as f2h1 before the morph
 			// starts; the timeout fallback covers occluded/background windows

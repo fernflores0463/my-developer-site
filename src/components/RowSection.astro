@@ -8,12 +8,13 @@ interface Row {
 interface Props {
 	label: string;
 	rows: Row[];
+	ink?: 'indigo' | 'rust' | 'amber' | 'mint';
 }
 
-const { label, rows } = Astro.props;
+const { label, rows, ink } = Astro.props;
 ---
 
-<section class="rows-section">
+<section class="rows-section" data-ink={ink}>
 	<h2 class="section-label section-label--ruled">{label}</h2>
 	<ul>
 		{

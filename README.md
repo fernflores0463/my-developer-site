@@ -1,43 +1,49 @@
-# Astro Starter Kit: Minimal
+# fernflores.dev
+
+Personal site of Fernando Flores Hernandez — a static [Astro](https://astro.build) site deployed to
+GitHub Pages at **[fernflores.dev](https://fernflores.dev)**.
+
+## Stack
+
+- Astro (`output: "static"`) — no SSR, no client-side framework
+- Hand-written global CSS with custom-property colour tokens (light + dark via
+  `prefers-color-scheme`, with `data-theme` / `data-palette` overrides on `<html>`)
+- Self-hosted fonts via Fontsource: Instrument Sans (prose) and IBM Plex Mono (metadata and the
+  brand)
+- `@astrojs/sitemap`; `@astrojs/mdx` and `@astrojs/rss` are installed for planned content but not
+  yet in use
+
+The header brand plays an intro on every page load: the mark `f2h1` (the initials FFH as a
+numeronym) expands in place directly into the full name in one continuous morph. It replays on
+click and renders the final frame with no animation under `prefers-reduced-motion`.
+
+## Developing
+
+Requires Node ≥ 22.12.
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev      # dev server with HMR, localhost:4321
+npm run build    # static build to dist/
+npm run preview  # serve the built dist/ locally
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+There is no test suite or linter; `npm run build` is the check — it type-checks `.astro` files and
+fails on broken imports.
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Layout
 
 ```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+src/
+├── layouts/BaseLayout.astro   # <html> shell, fonts, header/footer chrome
+├── components/                # Header (brand + intro), Footer, RowSection
+├── pages/index.astro          # the homepage (currently the only route)
+└── styles/global.css          # colour tokens + all site styles
+public/CNAME                   # keeps the custom domain attached — do not delete
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Deploying
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Every push to `main` builds and publishes via GitHub Actions
+(`.github/workflows/deploy.yml`). `public/CNAME` and `site` in `astro.config.mjs` are what keep the
+custom domain and sitemap URLs correct.

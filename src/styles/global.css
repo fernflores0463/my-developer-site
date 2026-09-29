@@ -350,23 +350,28 @@ a {
   padding-top: 6px;
 }
 
-.links a {
+/* The underlined accent link — hero links, plus .ink-link anywhere else */
+.links a,
+.ink-link {
   color: var(--accent);
   border-bottom: 2px solid var(--accent);
   padding-bottom: 2px;
 }
 
-.links a:hover {
+.links a:hover,
+.ink-link:hover {
   border-bottom-color: var(--marker);
 }
 
-.links a:focus-visible {
+.links a:focus-visible,
+.ink-link:focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .links a {
+  .links a,
+  .ink-link {
     transition: border-bottom-color 150ms ease;
   }
 }
@@ -460,6 +465,142 @@ a {
   color: var(--text-muted);
 }
 
+/* Selected work rows add a one-line note under the title */
+.row .note {
+  grid-column: 2 / -1;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+.row a.title:hover {
+  color: var(--accent);
+}
+
+.more {
+  padding-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+/* ============================================================
+   Inner pages — header and /work
+   ============================================================ */
+
+.site-header--inner {
+  justify-content: space-between;
+}
+
+.back-link {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
+.page-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 64px 0 48px;
+}
+
+.work-group {
+  padding-bottom: 46px;
+}
+
+.work-entry {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr) 160px;
+  column-gap: 18px;
+  padding: 28px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.work-entry .years {
+  padding-top: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--marker);
+  font-variant-numeric: tabular-nums;
+}
+
+.work-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.work-meta {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.work-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.work-summary {
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 56ch;
+  text-wrap: pretty;
+}
+
+.work-credit {
+  font-size: 14px;
+  color: var(--text-muted);
+}
+
+/* Inline links in the credit line: muted like the text around them, with an
+   underline strong enough to read as a link mid-sentence. */
+.work-credit a {
+  border-bottom: 1px solid var(--text-muted);
+}
+
+.work-credit a:hover {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+
+.work-links {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 22px;
+  row-gap: 10px;
+  padding-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+}
+
+.quiet-link {
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+}
+
+.quiet-link:hover {
+  color: var(--text);
+}
+
+.work-figure {
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--surface);
+}
+
 /* ============================================================
    Footer
    ============================================================ */
@@ -487,5 +628,25 @@ a {
 
   .row .org {
     grid-column: 2;
+  }
+
+  /* One column: figure on top, then the year, then the entry */
+  .work-entry {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 10px;
+    padding: 24px 0;
+  }
+
+  .work-entry .years {
+    padding-top: 6px;
+  }
+
+  .work-figure {
+    order: -1;
+    width: 100%;
+  }
+
+  .work-title {
+    font-size: 20px;
   }
 }

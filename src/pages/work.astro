@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LatticeFigure from '../components/LatticeFigure.astro';
+import { work } from '../data/work';
+
+// Keep groups in first-appearance order.
+const groups = [...new Set(work.map((item) => item.group))].map((group) => ({
+	label: group,
+	items: work.filter((item) => item.group === group),
+}));
+---
+
+<BaseLayout
+	title="Work — Fernando Flores Hernandez"
+	description="Papers, projects and write-ups by Fernando Flores Hernandez."
+	home={false}
+>
+	<section class="page-intro">
+		<p class="role">Work</p>
+		<h1 class="bio">Things I made to understand something properly.</h1>
+		<p class="prose">
+			Papers, projects and write-ups. Some are research, most are me going deep on something I
+			needed to get right.
+		</p>
+	</section>
+
+	{
+		groups.map((group) => (
+			<section class="work-group">
+				<h2 class="section-label section-label--ruled">{group.label}</h2>
+				{group.items.map((item) => (
+					<article class="work-entry">
+						<span class="years">{item.year}</span>
+						<div class="work-body">
+							<p class="work-meta">{item.meta.join(' · ')}</p>
+							<h3 class="work-title">{item.title}</h3>
+							<p class="work-summary" set:html={item.summary} />
+							<p class="work-credit" set:html={item.credit} />
+							<p class="work-links">
+								{item.links.map((link) => (
+									<a
+										href={link.href}
+										class={link.quiet ? 'quiet-link' : 'ink-link'}
+										aria-label={link.ariaLabel}
+										target={link.newTab ? '_blank' : undefined}
+										rel={link.newTab ? 'noopener' : undefined}
+									>
+										{link.label}
+									</a>
+								))}
+							</p>
+						</div>
+						{item.figure === 'lattice' && (
+							<div class="work-figure">
+								<LatticeFigure />
+							</div>
+						)}
+					</article>
+				))}
+			</section>
+		))
+	}
+</BaseLayout>

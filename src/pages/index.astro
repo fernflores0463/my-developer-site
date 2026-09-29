@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import RowSection from '../components/RowSection.astro';
+import { work } from '../data/work';
+
+const featuredWork = work.filter((item) => item.featured);
 
 const links = [
 	{ href: 'mailto:f1@fernflores.dev', label: 'f1@fernflores.dev' },
@@ -69,6 +72,28 @@ const experience = [
 
 	<RowSection label="Education" rows={education} ink="rust" />
 	<RowSection label="Experience" rows={experience} ink="amber" />
+
+	<!-- Unmarked on purpose: the four inks belong to the four original sections. -->
+	<section class="rows-section">
+		<h2 class="section-label section-label--ruled">Selected work</h2>
+		<ul>
+			{
+				featuredWork.map((item) => (
+					<li class="row">
+						<span class="years">{item.year}</span>
+						<a href="/work" class="title">
+							{item.shortTitle}
+						</a>
+						<span class="org">{item.kind}</span>
+						<span class="note">{item.note}</span>
+					</li>
+				))
+			}
+		</ul>
+		<p class="more">
+			<a href="/work" class="ink-link">All work →</a>
+		</p>
+	</section>
 
 	<section class="prose-section prose-section--closing" data-ink="mint">
 		<h2 class="section-label">Origin</h2>
